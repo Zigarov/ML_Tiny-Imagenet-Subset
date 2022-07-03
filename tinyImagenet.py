@@ -1,10 +1,11 @@
 import pandas as pd
 import argparse
 import os.path
+
 from distutils.dir_util import copy_tree
 from shutil import copy, make_archive
 
-def exctractLabels(n, dest=None, path_labels= "wnids.txt", path_classes="words.txt", ):
+def exctractLabels(n, dest=None, path_labels= "wnids.txt", path_classes="words.txt"):
     labels = pd.read_table(path_labels, names = ['labels'], nrows=n)
     classes = pd.read_table(path_classes, names = ['labels', 'classes'])
     classes = classes[classes['labels'].isin(labels['labels'])]
@@ -60,6 +61,7 @@ parser.add_argument("-c", default="words.txt", help="classes filename")
 parser.add_argument("-d", default="tinyImagenet", help="destination directory")
 parser.add_argument("-n", type=int, default=10, help='number of class.')
 parser.add_argument("-cp", type=bool, default=True, help='copy images in new folder.')
+# parser.add_argument("-w", type=bool, default=True, help='Download Tiny Imagenet from web')
 # parser.add_argument("-z", type=bool, default=True, help='zip the output.')
 
 args = parser.parse_args()
